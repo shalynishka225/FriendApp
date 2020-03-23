@@ -1,0 +1,8 @@
+.container {
+  margin-top: 1vw;
+  display: flex;
+}
+.side-bar {
+  margin-top: 1vw;
+  height: 1000px;
+}
