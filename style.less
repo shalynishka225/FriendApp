@@ -1,9 +1,22 @@
 .container {
     margin-top: 1vw;
     display: flex;
+    //flex-direction: row;
+}
+
+.btn {
+    margin-right: 1rem;
 }
 
 .side-bar {
     margin-top: 1vw;
     height: 1000px;
+}
+
+.card-main {
+    width: 200px;
+}
+
+@media screen and (max-width: 415px) {
+    .container {flex-direction: column;}
 }

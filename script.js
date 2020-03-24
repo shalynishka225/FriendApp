@@ -1,3 +1,4 @@
+let person;
 function createUser(element) {
     return document.createElement(element);
 }
@@ -5,6 +6,14 @@ function createUser(element) {
 function append(parent, element) {
     return parent.appendChild(element);
 }
+
+function userObj(user) {
+   let person = {
+        firstName : user.name.first,
+        lastName : user.name.last
+    }
+    console.log(person)
+}   
 
 fetch('https://randomuser.me/api/?results=36')
     .then((res) => res.json())
@@ -22,9 +31,9 @@ fetch('https://randomuser.me/api/?results=36')
             img.classList.toggle('card-img-top');
             card.classList.toggle('card');
             card.classList.toggle('mb-3');
-            card.classList.toggle('w-50');
             card.classList.toggle('text-white');
             card.classList.toggle('bg-secondary');
+            cardBody.classList.toggle('card-body');
             img.src = user.picture.large;
             p.innerHTML = `${user.name.first} ${user.name.last}`;
 
@@ -33,9 +42,13 @@ fetch('https://randomuser.me/api/?results=36')
             append(cardBody, img);
             append(cardBody, p);
             append(document.getElementById('users'), col);
+
+            userObj(user);
         });
     })
+    .then()
 
     .catch(function (error) {
         console.log(error)
     });
+    
