@@ -1,4 +1,5 @@
-let person;
+let url = 'https://randomuser.me/api/?results=36';
+
 function createUser(element) {
     return document.createElement(element);
 }
@@ -7,18 +8,8 @@ function append(parent, element) {
     return parent.appendChild(element);
 }
 
-function userObj(user) {
-   let person = {
-        firstName : user.name.first,
-        lastName : user.name.last
-    }
-    console.log(person)
-}   
-
-fetch('https://randomuser.me/api/?results=36')
-    .then((res) => res.json())
-    .then(function(data) {
-        let users = data.results;
+function createCard(data) {
+    let users = data.results;
         return users.map((user) => {
             let col = createUser('div');
             let card = createUser('div');
@@ -42,13 +33,51 @@ fetch('https://randomuser.me/api/?results=36')
             append(cardBody, img);
             append(cardBody, p);
             append(document.getElementById('users'), col);
-
-            userObj(user);
         });
+}
+
+fetch(url)
+    .then((res) => res.json())
+    .then(function(data) {
+        createCard(data);
+        console.log(data);
     })
-    .then()
 
     .catch(function (error) {
         console.log(error)
     });
+
+    let a = new Promise((resolve, reject) => {
+        fetch(url)
+        .then(data => {
+            resolve(data.json())
+        })
+    })
+
+    let b = new Promise((resolve, reject) => {
+        fetch(url)
+        .then(data => {
+            resolve(data.json())
+        })
+    })
+
+    function sortUp () {
+        a.then(data => {
+            data.results.sort((a,b) => {
+                debugger;
+                return a.dob.age - b.dob.age
+            });
+            console.log(data.results);
+        })
+    }
+
+    function sortDown () {
+        b.then(data => {
+            let age = [];
+            data.results.map((user) => {
+                age.push(user.dob.age);
+            });
+            console.log(age.sort().reverse());
+        });
+    }
     

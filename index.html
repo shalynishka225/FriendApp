@@ -30,8 +30,8 @@
                     <h5 class="card-title">Properties</h5>
                     <div class="sort-age">
                       <p>By Age</p>
-                      <button class="btn bg-dark text-white"><img src="/img/down.svg" alt=""></button>
-                      <button class="btn bg-dark text-white"><img src="/img/upsvg.svg" alt=""></button>
+                      <button class="btn bg-dark text-white"><img src="/img/down.svg" alt="" onclick="sortUp()"></button>
+                      <button class="btn bg-dark text-white"><img src="/img/upsvg.svg" alt="" onclick="sortDown()"></button>
                     </div>
                    <div class="sort-name">
                      <p>By Name</p>
@@ -39,11 +39,19 @@
                     <button class="btn bg-dark text-white"><img src="/img/upsvg.svg" alt=""></button>
                    </div>
                   </br>
-                   <div class="sort-input">
+                   <div class="sort-age-input">
                     <div class="input-group mb-3">
-                      <input type="text" class="form-control" placeholder="Search" aria-label="Search by name" aria-describedby="button-addon2">
+                      <input type="number" class="form-control" placeholder="Age" aria-label="Search by name" aria-describedby="button-addon2">
                       <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Sort</button>
+                      </div>
+                    </div>
+                   </div>
+                   <div class="sort-age-input">
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" placeholder="Name" aria-label="Search by name" aria-describedby="button-addon2">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Sort</button>
                       </div>
                     </div>
                    </div>
@@ -67,6 +75,6 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<script src="/script.js"></script>
+<script src="/scripts/script.js"></script>
 </body>
 </html>
