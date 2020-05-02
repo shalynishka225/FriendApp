@@ -12,6 +12,9 @@ module.exports = {
         filename:'[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist')
     },
+    devServer:{
+        port: 1234
+    },
     plugins: [
         new HTMLWebpackPlugin({
             title: 'Friend-App',
@@ -26,7 +29,7 @@ module.exports = {
                 use: ['style-loader','css-loader']
             },
             {
-                test: /\.(png|jpg|svg|gif)$/,
+                test: /\.(png|jpg|svg|gif|svg)$/,
                 use: ['file-loader']
             }
         ]

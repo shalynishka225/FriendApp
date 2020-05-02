@@ -1,37 +1,128 @@
-.container {
-  margin-top: 1vw;
+* {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.container-xl {
   display: flex;
+  margin-top: 3rem;
 }
-.btn {
-  margin-right: 1rem;
-}
+
 .side-bar {
-  margin-top: 1vw;
-  height: 1000px;
-}
-.card-main {
-  width: 200px;
+  margin-right: 3vw;
 }
 @media screen and (max-width: 415px) {
   .container {
     flex-direction: column;
   }
+
+  .card-prop {
+    width: 18rem !important;
+    margin: 0 auto !important;
+    margin-bottom: 1rem !important;
+    margin-top: 1rem !important;
+  }
+
+  .navbar {
+    justify-content: center;
+  }
+
+  .col {
+    flex-basis: auto;
+  }
 }
 
 .up {
-  background-image: url('../img/upsvg.svg');
+  background-image: url("../img/upsvg.svg");
   background-size: cover;
   margin: 0 auto;
-  margin-right: 1rem;
   height: 35px;
   width: 35px;
 }
 
 .down {
-  background-image: url('../img/down.svg');
+  background-image: url("../img/down.svg");
   background-size: cover;
   margin: 0 auto;
-  margin-right: 1rem;
   height: 35px;
   width: 35px;
+}
+
+.nav-neon {
+  box-shadow: 1vw 1vw 1vw 1vw #ae979f, 
+  0 0 0.6vw 1vw #ae979f,
+    0 0 6vw 1vw #ae979f!important;
+  margin: 0 auto;
+}
+
+.navbar {
+  background-color: #ae979f;
+  color: #66606c;
+}
+
+.navbar-top {
+  background-color: #66606c;
+}
+
+.text {
+  color: #d9d4da !important;
+}
+
+body {
+  background-color: #d9d4da;
+}
+
+.card-body {
+  background-color: #66606c;
+  border-radius: 5px;
+}
+
+.card-prop {
+  width: 10rem;
+  margin-bottom: 1rem;
+}
+
+.btn {
+  background-color: #ae979f !important;
+}
+
+.btn:hover {
+  background-color: #7d7276 !important;
+}
+
+.card-main {
+  background-color: #66606c;
+  padding: 2px;
+}
+
+.col {
+  flex-grow: 0;
+  padding-left: 2px;
+  padding-right: 2px;
+  text-align: center;
+}
+
+.form-control {
+  background-color: #66606c;
+  border: none;
+  border-bottom: 2px solid #ae979f;
+  border-radius: 0;
+}
+
+button:hover, .card-main:hover {
+  background-color: #7d7276;
+}
+
+.form-control::placeholder {
+  color: #d9d4da !important;
+  outline: none !important;
+}
+
+.form-control:focus {
+  background-color: #66606c;
+  color: #d9d4da !important;
+  outline: none !important;
+  text-decoration: none !important;
+  outline-offset: 0 !important;
+  border-bottom: 2px solid #7d7276;
 }

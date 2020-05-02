@@ -1,12 +1,13 @@
 import './styles/style.css';
+import './img/icon.svg';
+
 
 async function fetchAsyncData() {
   try {
-    const url = "https://randomuser.me/api/?results=36";
+    const url = "https://randomuser.me/api/?results=48";
     const response = await fetch(url);
     const data = await response.json();
     let startData = data.results.slice();
-    //console.log(startData);
 
     Element.prototype.remove = function () {
       this.parentElement.removeChild(this);
@@ -19,68 +20,64 @@ async function fetchAsyncData() {
       }
     };
 
-    function createUser(element) {
-      return document.createElement(element);
-    }
-
-    function append(parent, element) {
-      return parent.appendChild(element);
-    }
-
     function createCard(data) {
       return data.forEach((el) => {
-        const col = createUser("div");
-        const card = createUser("div");
-        const cardBody = createUser("div");
-        const img = createUser("img");
-        const name = createUser("p");
-        const age = createUser("p");
-        const gender = createUser("p");
-        const email = createUser("p");
+        const container = document.getElementById('users');
+        const col = document.createElement('div');
+        const card = document.createElement('div');
+        const cardBody = document.createElement('div');
+        const img = document.createElement('img');
+        const name = document.createElement('p');
+        const age = document.createElement('p');
+        //const gender = document.createElement('p');
 
         col.classList.toggle("col");
         col.id = "item";
-        name.classList.toggle("card-text");
+        name.classList.toggle("text");
         img.classList.toggle("card-img-top");
         card.classList.toggle("card");
-        card.classList.toggle("mb-3");
+        card.classList.toggle("card-prop");
+        //card.classList.toggle("m-2");
+
         card.classList.toggle("text-white");
         card.classList.toggle("bg-secondary");
-        cardBody.classList.toggle("card-body");
+        //card.classList.toggle("neon");
+        cardBody.classList.toggle("card-main");
         img.src = el.picture.large;
-        name.innerHTML = `${el.name.first} ${el.name.last}`;
+        name.innerHTML = `${el.name.first} </br> ${el.name.last}`;
         age.innerHTML = `Age: ${el.dob.age}`;
-        gender.innerHTML = `Gender: ${el.gender}`;
-        email.innerHTML = `Email: ${el.email}`;
+        //gender.innerHTML = `Gender: ${el.gender}`;
 
-        append(col, card);
-        append(card, cardBody);
-        append(cardBody, img);
-        append(cardBody, name);
-        append(cardBody, age);
-        append(cardBody, gender);
-        //append(cardBody, email);
-        append(document.getElementById("users"), col);
+        col.appendChild(card);
+        card.appendChild(cardBody);
+        cardBody.appendChild(img);
+        cardBody.appendChild(name);
+        cardBody.appendChild(age);
+        //cardBody.appendChild(gender);
+        container.appendChild(col);
       });
     }
 
-    function sortUpAge(data) {
+    function sortUpAge(val) {
       deleteCard();
-      const sorted = [...data];
+      let sorted = [...startData];
+      sorted = sorted.filter(item => item.name.first.indexOf(val) != -1);
       sorted.sort((a, b) => a.dob.age - b.dob.age);
       createCard(sorted);
     }
 
-    function sortDownAge(data) {
+    function sortDownAge(val) {
       deleteCard();
-      const sorted = data;
-      sorted.sort((a, b) => a.dob.age - b.dob.age).reverse();
+      let sorted = [...startData];
+      sorted = sorted.filter(item => item.name.first.indexOf(val) != -1);
+      sorted.sort((a, b) => b.dob.age - a.dob.age);
       createCard(sorted);
     }
 
-    function sortUpName(data) {
+    function sortUpName(val) {
       deleteCard();
-      const sorted = data;
+      let sorted = [...startData];
+      sorted = sorted.filter(item => item.name.first.indexOf(val) != -1);
       sorted.sort((a, b) => {
         const nameA = a.name.first.toLowerCase(),
           nameB = b.name.first.toLowerCase();
@@ -91,9 +88,10 @@ async function fetchAsyncData() {
       createCard(sorted);
     }
 
-    function sortDownName(data) {
+    function sortDownName(val) {
       deleteCard();
-      const sorted = data;
+      let sorted = [...startData];
+      sorted = sorted.filter(item => item.name.first.indexOf(val) != -1);
       sorted.sort((a, b) => {
         const nameA = a.name.first.toLowerCase(),
           nameB = b.name.first.toLowerCase();
@@ -104,24 +102,11 @@ async function fetchAsyncData() {
       createCard(sorted);
     }
 
-    function filterName(val, data) {
+    function filterName(val) {
       deleteCard();
-      let result = [];
-      // const sorted = data.slice();
-      data.forEach((element) => {
-        if (element.name.first.indexOf(val) != -1) result.push(element);
-      });
-      createCard(result);
-    }
-
-    function filterAge(val, data) {
-      deleteCard();
-      let result = [];
-      //const sorted = data.slice();
-      data.forEach((element) => {
-        if (element.dob.age == val) result.push(element);
-      });
-      createCard(result);
+      let sorted = [...startData];
+      sorted = sorted.filter(item => item.name.first.indexOf(val) != -1);
+      createCard(sorted);
     }
 
     function deleteCard() {
@@ -129,40 +114,62 @@ async function fetchAsyncData() {
       elem.remove();
     }
 
-    createCard(startData);
-
-    document.getElementById("resetBtn").addEventListener("click", () => {
+    function resetButton() {
       deleteCard();
       startData = data.results;
+      document.getElementById('nameFilter').value = '';
       createCard(startData);
-    });
+    }
 
-    document.getElementById("ageFilter").addEventListener("input", (e) => {
-      filterAge(e.target.value, startData);
-    });
+    createCard(startData);
 
-    document.getElementById("nameFilter").addEventListener("input", (e) => {
-      filterName(e.target.value, startData);
-    });
+    document.addEventListener('click', (e) => {
+      let value = document.getElementById('nameFilter').value;
 
-    document.getElementById("sortUpAge").addEventListener("click", () => {
-      sortUpAge(startData);
-    });
+      switch(e.target.id) {
+        case 'sortUpAge':
+          sortUpAge(value);
+        break;
 
-    document.getElementById("sortDownAge").addEventListener("click", () => {
-      sortDownAge(startData);
-    });
+        case 'sortDownAge':
+          sortDownAge(value);
+        break;
 
-    document.getElementById("sortUpName").addEventListener("click", () => {
-      sortUpName(startData);
-    });
+        case 'sortDownName':
+          sortDownName(value);
+        break;
 
-    document.getElementById("sortDownName").addEventListener("click", () => {
-      sortDownName(startData);
-    });
+        case 'sortUpName':
+          sortUpName(value);
+        break;
+
+        case 'resetBtn': 
+          resetButton();
+        break;
+
+        case 'nameFilter':
+          document.getElementById('nameFilter').oninput = (e) => {
+            filterName(e.target.value);
+          }
+        break;
+      }
+    })
+
   } catch (e) {
     console.error(e);
   }
 }
 
 fetchAsyncData();
+
+
+// function filterAge(val, data) {
+    //   deleteCard();
+    //   let sorted = [...data];
+    //   sorted = sorted.filter(item => item.dob.age == val);
+    //   createCard(sorted);
+    // }
+
+     // document.getElementById("ageFilter").addEventListener("input", (e) => {
+    //   filterAge(e.target.value, startData);
+    // });
