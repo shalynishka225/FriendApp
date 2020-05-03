@@ -8,6 +8,7 @@ async function fetchAsyncData() {
     const response = await fetch(url);
     const data = await response.json();
     let startData = data.results.slice();
+    let isMan;
 
     Element.prototype.remove = function () {
       this.parentElement.removeChild(this);
@@ -59,17 +60,31 @@ async function fetchAsyncData() {
     }
 
     function sortUpAge(val) {
+     
       deleteCard();
       let sorted = [...startData];
       sorted = sorted.filter(item => item.name.first.indexOf(val) != -1);
+      if(isMan) {
+        sorted = sorted.filter(item => item.gender == 'male');
+      }
+      if(!isMan) {
+        sorted = sorted.filter(item => item.gender == 'female');
+      }
       sorted.sort((a, b) => a.dob.age - b.dob.age);
       createCard(sorted);
+      
     }
 
     function sortDownAge(val) {
       deleteCard();
       let sorted = [...startData];
       sorted = sorted.filter(item => item.name.first.indexOf(val) != -1);
+      if(isMan) {
+        sorted = sorted.filter(item => item.gender == 'male');
+      }
+      if(!isMan) {
+        sorted = sorted.filter(item => item.gender == 'female');
+      }
       sorted.sort((a, b) => b.dob.age - a.dob.age);
       createCard(sorted);
     }
@@ -78,6 +93,12 @@ async function fetchAsyncData() {
       deleteCard();
       let sorted = [...startData];
       sorted = sorted.filter(item => item.name.first.indexOf(val) != -1);
+      if(isMan) {
+        sorted = sorted.filter(item => item.gender == 'male');
+      }
+      if(!isMan) {
+        sorted = sorted.filter(item => item.gender == 'female');
+      }
       sorted.sort((a, b) => {
         const nameA = a.name.first.toLowerCase(),
           nameB = b.name.first.toLowerCase();
@@ -92,6 +113,12 @@ async function fetchAsyncData() {
       deleteCard();
       let sorted = [...startData];
       sorted = sorted.filter(item => item.name.first.indexOf(val) != -1);
+      if(isMan) {
+        sorted = sorted.filter(item => item.gender == 'male');
+      }
+      if(!isMan) {
+        sorted = sorted.filter(item => item.gender == 'female');
+      }
       sorted.sort((a, b) => {
         const nameA = a.name.first.toLowerCase(),
           nameB = b.name.first.toLowerCase();
@@ -105,6 +132,12 @@ async function fetchAsyncData() {
     function filterName(val) {
       deleteCard();
       let sorted = [...startData];
+      // if(isMan) {
+      //   sorted = sorted.filter(item => item.gender == 'male');
+      // }
+      // if(!isMan) {
+      //   sorted = sorted.filter(item => item.gender == 'female');
+      // }
       sorted = sorted.filter(item => item.name.first.indexOf(val) != -1);
       createCard(sorted);
     }
@@ -121,10 +154,29 @@ async function fetchAsyncData() {
       createCard(startData);
     }
 
+    function sortUpGender(val) {
+      deleteCard();
+      let sorted = [...startData];
+      sorted = sorted.filter(item => item.name.first.indexOf(val) != -1);
+      sorted = sorted.filter(item => item.gender == 'male');
+      createCard(sorted);
+      isMan = true;
+    }
+
+    function sortDownGender(val) {
+      deleteCard();
+      let sorted = [...startData];
+      sorted = sorted.filter(item => item.name.first.indexOf(val) != -1);
+      sorted = sorted.filter(item => item.gender == 'female');
+      createCard(sorted);
+      isMan = false;
+    }
+
     createCard(startData);
 
     document.addEventListener('click', (e) => {
       let value = document.getElementById('nameFilter').value;
+      let isMan;
 
       switch(e.target.id) {
         case 'sortUpAge':
@@ -151,6 +203,14 @@ async function fetchAsyncData() {
           document.getElementById('nameFilter').oninput = (e) => {
             filterName(e.target.value);
           }
+        break;
+
+        case 'sortUpGender':
+          sortUpGender(value);
+        break;
+
+        case 'sortDownGender':
+          sortDownGender(value);
         break;
       }
     })
