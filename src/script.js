@@ -67,7 +67,7 @@ async function fetchAsyncData() {
       if(isMan) {
         sorted = sorted.filter(item => item.gender == 'male');
       }
-      if(!isMan) {
+      else {
         sorted = sorted.filter(item => item.gender == 'female');
       }
       sorted.sort((a, b) => a.dob.age - b.dob.age);
@@ -82,7 +82,7 @@ async function fetchAsyncData() {
       if(isMan) {
         sorted = sorted.filter(item => item.gender == 'male');
       }
-      if(!isMan) {
+      else {
         sorted = sorted.filter(item => item.gender == 'female');
       }
       sorted.sort((a, b) => b.dob.age - a.dob.age);
@@ -96,7 +96,7 @@ async function fetchAsyncData() {
       if(isMan) {
         sorted = sorted.filter(item => item.gender == 'male');
       }
-      if(!isMan) {
+      else {
         sorted = sorted.filter(item => item.gender == 'female');
       }
       sorted.sort((a, b) => {
@@ -116,7 +116,7 @@ async function fetchAsyncData() {
       if(isMan) {
         sorted = sorted.filter(item => item.gender == 'male');
       }
-      if(!isMan) {
+      else {
         sorted = sorted.filter(item => item.gender == 'female');
       }
       sorted.sort((a, b) => {
@@ -132,12 +132,6 @@ async function fetchAsyncData() {
     function filterName(val) {
       deleteCard();
       let sorted = [...startData];
-      // if(isMan) {
-      //   sorted = sorted.filter(item => item.gender == 'male');
-      // }
-      // if(!isMan) {
-      //   sorted = sorted.filter(item => item.gender == 'female');
-      // }
       sorted = sorted.filter(item => item.name.first.indexOf(val) != -1);
       createCard(sorted);
     }
@@ -176,7 +170,6 @@ async function fetchAsyncData() {
 
     document.addEventListener('click', (e) => {
       let value = document.getElementById('nameFilter').value;
-      let isMan;
 
       switch(e.target.id) {
         case 'sortUpAge':
@@ -221,15 +214,3 @@ async function fetchAsyncData() {
 }
 
 fetchAsyncData();
-
-
-// function filterAge(val, data) {
-    //   deleteCard();
-    //   let sorted = [...data];
-    //   sorted = sorted.filter(item => item.dob.age == val);
-    //   createCard(sorted);
-    // }
-
-     // document.getElementById("ageFilter").addEventListener("input", (e) => {
-    //   filterAge(e.target.value, startData);
-    // });
